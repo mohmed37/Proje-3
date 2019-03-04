@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class Combinaison {
     Scanner clavier = new Scanner(System.in);
     Random rand = new Random();
