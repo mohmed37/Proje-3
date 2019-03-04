@@ -1,5 +1,8 @@
 package main.java;
 
+import main.resources.Config;
+
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -7,7 +10,7 @@ import java.util.Scanner;
 public class Combinaison {
     Scanner clavier = new Scanner(System.in);
     Random rand = new Random();
-    int nbcombinaison = 4;
+    static int nbcombinaison;
     int i = 0;
     char resultat[] = new char[nbcombinaison];
     char resultat2[] = new char[nbcombinaison];
@@ -26,6 +29,7 @@ public class Combinaison {
      */
 
     void combinaisonAleatoire() {
+
 
         StringBuilder sb = new StringBuilder();
         for (i = 0; i <= nbcombinaison - 1; i++) {

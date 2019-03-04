@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    int nbtour = 10;
+
     int choix1 = 0;
     int choix2 = 0;
 
