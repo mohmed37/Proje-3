@@ -1,10 +1,14 @@
-package main.java;
+package jeux;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-
+    protected static final Logger parentLogger = LogManager.getLogger();
     int choix1 = 0;
     int choix2 = 0;
 
@@ -12,9 +16,10 @@ public class Menu {
 
 
 
-        int menu1 () {
+        int menu1 () throws IOException {
 
             Menu menu=new Menu();
+            parentLogger.info("Selection du style de jeux");
             System.out.println("Avec quel style de jeux voulez-vous jouer?");
             System.out.println(" - 1 - Recherche +/- ");
             System.out.println(" - 2 - Mastermind ");
@@ -22,9 +27,11 @@ public class Menu {
                 choix1 = clavier.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Votre saisie erronée");
+                parentLogger.warn("Mauvaise saisie : " +choix1);
                 return menu.menu1();
             }
             if (choix1 > 0 && choix1 <= 2) {
+                parentLogger.info("Selection du style de jeux");
                 System.out.println("Avec quel mode de jeu voulez-vous jouer?");
                 System.out.println(" - 1 - Challenger ");
                 System.out.println(" - 2 - Défenseur ");
@@ -33,10 +40,12 @@ public class Menu {
                     choix2 = clavier.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Votre saisie est erronée");
+                    parentLogger.warn("Mauvaise saisie : " +choix2);
                     return menu.menu1();
                 }
             } else {
                 System.out.println("Vous n'avez pas choisi parmis les modes de jeux proposés");
+                parentLogger.warn("Mauvaise saisie : " +choix1);
                 return menu1();
             }
 
@@ -61,11 +70,13 @@ public class Menu {
                 }
             } else {
                 System.out.println("Vous n'avez pas choisi parmis les modes de jeux proposés");
+                parentLogger.warn("Mauvaise saisie : " +choix2);
                 return menu.menu1();
             }
             return menu1();
         }
-        void finDeCycle ( int choixDuJeu){
+        void finDeCycle ( int choixDuJeu) throws IOException {
+            parentLogger.info("Fin du cycle selection : Que voulez vous faire");
             int choixmenu = 0;
             Menu menu =new Menu();
 
@@ -78,6 +89,7 @@ public class Menu {
                 choixmenu = clavier.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Votre saisie erronée");
+                parentLogger.warn("Mauvaise saisie : " +choixmenu);
                 menu.finDeCycle(choixDuJeu = choixDuJeu);
             }
             if (choixmenu == 1) {
@@ -106,9 +118,11 @@ public class Menu {
 
             if (choixmenu == 3) {
                 System.out.println("Fin du jeu ");
+                parentLogger.info("Fin du jeu");
                 System.exit(0);
             } else {
                 System.out.println("Vous n'avez pas choisi parmis les choix proposés");
+                parentLogger.warn("Mauvaise saisie : " +choixDuJeu);
                 menu.finDeCycle(choixDuJeu = choixDuJeu);
             }
         }

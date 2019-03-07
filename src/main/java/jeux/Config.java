@@ -1,8 +1,14 @@
-package main.resources;
+package jeux;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+
+/**
+ * Méthode getProperties pou récuperer les éléments dans le fichier config.properties
+ */
+
+
 
 public class Config {
     public static String getProperties(String propertyName) throws IOException {

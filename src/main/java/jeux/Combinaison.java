@@ -1,6 +1,6 @@
-package main.java;
-
-import main.resources.Config;
+package jeux;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 
 public class Combinaison {
+    protected static final Logger parentLogger = LogManager.getLogger();
     Scanner clavier = new Scanner(System.in);
     Random rand = new Random();
     static int nbcombinaison;
@@ -23,6 +24,7 @@ public class Combinaison {
     int code4 = 0;
     String kstring;
     String tstring;
+    int modeDev;
 
     /**
      * Méthode pour créer le code secret en mode aléatoire.
@@ -30,15 +32,30 @@ public class Combinaison {
      */
 
     void combinaisonAleatoire() {
+        parentLogger.info("combinaison Aleatoire");
+
+        try {
+
+            modeDev = Integer.valueOf(Config.getProperties("ModeDev"));
+        } catch (IOException e) {
+            System.out.println("Il y a eu une erreur avec le chargement du fichier");
+            parentLogger.warn("Il y a eu une erreur avec le chargement du fichier properties");
+        }
 
 
         StringBuilder sb = new StringBuilder();
         for (i = 0; i <= nbcombinaison - 1; i++) {
             k[i] = rand.nextInt(9);
             sb.append(k[i]);
+            kstring = sb.toString();
         }
-        kstring = sb.toString();
+        parentLogger.info("Combinaison secrète ordinateur : " + kstring);
+        if (modeDev == 1){
         System.out.println("Combinaison secrète ordinateur : " + kstring);
+    }else {
+        }
+
+
     }
 
     /**
@@ -46,11 +63,13 @@ public class Combinaison {
      */
 
     void combinaisonManuel() {
+        parentLogger.info("combinaison Manue");
 
         System.out.println("Taper votre code");
         int code1 = 0;
         try {
             code1 = clavier.nextInt();
+            parentLogger.info("Combinaison manuel code tapé : " +  code1 );
 
             code3 = code1;
             int nbCommbMax = 1;
@@ -67,11 +86,13 @@ public class Combinaison {
                 }
             } else {
                 System.out.println("Le code tapé est plus grand que la combinaison qui est de : " + nbcombinaison + " chiffres");
+                parentLogger.info("Combinaison manuel code tapé plus grand que la combinaison: "+ nbcombinaison +"code tapé : "+  code1 );
                 combinaisonManuel();
 
             }
         } catch (InputMismatchException e) {
             System.out.println("Votre saisie est erronée");
+            parentLogger.info("Votre saisie est erronée "+code1 );
             clavier = new Scanner(System.in);
             combinaisonManuel();
         }
@@ -85,7 +106,8 @@ public class Combinaison {
      *  @param  duel si vrai ou faux on est en mode duel.
      */
 
-    void comparaison(boolean recherche, boolean duel) {
+    void comparaison(boolean recherche, boolean duel) throws IOException {
+        parentLogger.info("comparaison");
         int result = 0;
         for (i = 0; i <= nbcombinaison - 1; i++) {
             if (k[i] > c[i]) {
@@ -169,8 +191,8 @@ public class Combinaison {
      * @param recherche si vrai ou faux on est en style du jeu recherche.
      *
      */
-    void ordinateur(boolean ordi, boolean recherche,boolean duel) {
-
+    void ordinateur(boolean ordi, boolean recherche,boolean duel) throws IOException {
+        parentLogger.info("ordinateur");
         int result1 = 0;
         int min = 0;
         int max = 9;
@@ -200,10 +222,12 @@ public class Combinaison {
                 else {
                     System.out.println(" ");
                     System.out.println("Le code tapé est plus grande que la combinaison qui est de : " + nbcombinaison + " chiffres");
+                    parentLogger.info("Combinaison manuel code tapé plus grand que la combinaison: "+ nbcombinaison +"code tapé : "+  code1 );
                     ordinateur(true, true,false);
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Votre saisie est erronée");
+                parentLogger.info("Votre saisie est erronée "+code1 );
                 clavier = new Scanner(System.in);
                 ordinateur(true, true,false);
             }
