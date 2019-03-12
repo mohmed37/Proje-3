@@ -25,17 +25,18 @@ public class Combinaison {
     String kstring;
     String tstring;
     int modeDev;
+    int modeMastermind;
 
     /**
      * Méthode pour créer le code secret en mode aléatoire.
      *
      */
 
-    void combinaisonAleatoire() {
+    void combinaisonAleatoire( boolean recherche) {
         parentLogger.info("combinaison Aleatoire");
 
         try {
-
+            modeMastermind = Integer.valueOf(Config.getProperties("ModeMastermind"));
             modeDev = Integer.valueOf(Config.getProperties("ModeDev"));
         } catch (IOException e) {
             System.out.println("Il y a eu une erreur avec le chargement du fichier");
@@ -45,7 +46,14 @@ public class Combinaison {
 
         StringBuilder sb = new StringBuilder();
         for (i = 0; i <= nbcombinaison - 1; i++) {
-            k[i] = rand.nextInt(9);
+            if (recherche==true){
+                k[i] = rand.nextInt(9);
+            }else {
+
+                k[i] = rand.nextInt(modeMastermind +1);
+                System.out.println(modeMastermind);
+            }
+
             sb.append(k[i]);
             kstring = sb.toString();
         }
@@ -62,7 +70,7 @@ public class Combinaison {
      * méthode pour écrire le code secret sur le clavier.
      */
 
-    void combinaisonManuel() {
+    void combinaisonManuel(boolean recherche) {
         parentLogger.info("combinaison Manue");
 
         System.out.println("Taper votre code");
@@ -83,18 +91,29 @@ public class Combinaison {
                     code2 = code2 % nbCommbMax;
                     c[i] = code1;
                     nbCommbMax = nbCommbMax / 10;
+
                 }
+                if (recherche==false){
+                for (int i = 0; i <= nbcombinaison - 1; i++) {
+                if (c[i] >modeMastermind){
+                    System.out.println("les chiffres doivent être < ou = à " +modeMastermind );
+                    parentLogger.info("chiffre > que  "+modeMastermind);
+                    combinaisonManuel(recherche==false);
+                }else {
+
+                }}}
+
             } else {
                 System.out.println("Le code tapé est plus grand que la combinaison qui est de : " + nbcombinaison + " chiffres");
                 parentLogger.info("Combinaison manuel code tapé plus grand que la combinaison: "+ nbcombinaison +"code tapé : "+  code1 );
-                combinaisonManuel();
+                combinaisonManuel(recherche==false);
 
             }
         } catch (InputMismatchException e) {
             System.out.println("Votre saisie est erronée");
             parentLogger.info("Votre saisie est erronée "+code1 );
             clavier = new Scanner(System.in);
-            combinaisonManuel();
+            combinaisonManuel(recherche==false);
         }
 
 
@@ -195,7 +214,15 @@ public class Combinaison {
         parentLogger.info("ordinateur");
         int result1 = 0;
         int min = 0;
-        int max = 9;
+        int max;
+
+        modeMastermind = Integer.valueOf(Config.getProperties("ModeMastermind"));
+        if (recherche==true){
+            max=9;
+        }else {
+            max=modeMastermind+1;
+        }
+
         StringBuilder sb = new StringBuilder();
 
 
@@ -218,7 +245,9 @@ public class Combinaison {
                         code2 = code2 % nbCommbMax;
                         v[i] = code1;
                         nbCommbMax = nbCommbMax / 10;
+
                     }
+
                 else {
                     System.out.println(" ");
                     System.out.println("Le code tapé est plus grande que la combinaison qui est de : " + nbcombinaison + " chiffres");
@@ -231,8 +260,18 @@ public class Combinaison {
                 clavier = new Scanner(System.in);
                 ordinateur(true, true,false);
             }
+
+            if (recherche==false){
+            for ( i = 0; i <= nbcombinaison - 1; i++) {
+                if (v[i] >modeMastermind){
+                    System.out.println("les chiffres doivent être < ou = à " +modeMastermind );
+                    parentLogger.info("chiffre > que  "+modeMastermind);
+                    ordinateur(true, true,false);
+                }else {
+
+                }}}
             for (i = 0; i <= nbcombinaison - 1; i++) {
-                t[i]= rand.nextInt(9);}
+                t[i]= rand.nextInt(max);}
         } else {
 
             for (i = 0; i <= nbcombinaison - 1; i++) {
@@ -287,7 +326,13 @@ public class Combinaison {
             }
             for (i = 0; i <= nbcombinaison - 1; i++) {
                 if (v[i] > t[i] && v[i] != t[i]) {
+                    try {
                     t[i] = ((t[i] + 1) + rand.nextInt(max - t[i]));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("les chiffres doivent être < ou = à " +modeMastermind );
+                        parentLogger.info("chiffre > que  "+modeMastermind);
+                        ordinateur(true, true,false);
+                    }
                 }
                 if (v[i] < t[i] && v[i] != t[i]) {
                     t[i] = ((min + 1) + rand.nextInt((t[i] + 1)));

@@ -23,9 +23,9 @@ public class JeuxMastermind {
         }
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
-        combinaison.combinaisonAleatoire();
+        combinaison.combinaisonAleatoire(false);
         for (int i = 1; i <= nbtour; i++) {
-            combinaison.combinaisonManuel();
+            combinaison.combinaisonManuel(false);
             combinaison.comparaison(false, false);
         }
         System.out.print("Vous avez perdu le code secret était : "+combinaison.kstring);
@@ -68,10 +68,10 @@ public class JeuxMastermind {
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
         combinaison.ordinateur(true, false,true);
-        combinaison.combinaisonAleatoire();
+        combinaison.combinaisonAleatoire(false);
         for (int j = 1; j <= nbtour; j++) {
             combinaison.ordinateur(false, false,true);
-            combinaison.combinaisonManuel();
+            combinaison.combinaisonManuel(false);
             combinaison.comparaison(false, true);
         }
         System.out.print("Vous n'avez pas pu vous départager et le code secret de l'ordinateur était: "+combinaison.kstring);

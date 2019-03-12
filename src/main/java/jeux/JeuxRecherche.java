@@ -23,9 +23,9 @@ public class JeuxRecherche {
             }
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
-        combinaison.combinaisonAleatoire();
+        combinaison.combinaisonAleatoire(true);
         for (int i = 1; i <= nbtour; i++) {
-            combinaison.combinaisonManuel();
+            combinaison.combinaisonManuel(true);
             combinaison.comparaison(true, false);
         }
         System.out.print("Vous avez perdu le code secret était : "+combinaison.kstring);
@@ -67,10 +67,10 @@ public class JeuxRecherche {
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
         combinaison.ordinateur(true, true,true);
-        combinaison.combinaisonAleatoire();
+        combinaison.combinaisonAleatoire(true);
         for (int j = 1; j <= nbtour; j++) {
             combinaison.ordinateur(false, true,true);
-            combinaison.combinaisonManuel();
+            combinaison.combinaisonManuel(true);
             combinaison.comparaison(true, true);
         }
         System.out.print("Vous n'avez pas pu vous départager et le code secret de l'ordinateur était: "+combinaison.kstring);
