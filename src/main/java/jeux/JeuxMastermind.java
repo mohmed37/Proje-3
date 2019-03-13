@@ -12,8 +12,10 @@ public class JeuxMastermind {
 
 
     static void challengerMastermind() throws IOException{
+
         parentLogger.info("jeu selectionné : challenger Mastermind");
         int nbtour = 0;
+
         try {
             nbtour = Integer.valueOf(Config.getProperties("ConfNbTour1"));
             Combinaison.nbcombinaison = Integer.valueOf(Config.getProperties("ConfNbCombinaison"));
@@ -34,6 +36,7 @@ public class JeuxMastermind {
     }
 
     static void defenseurMastermind() throws IOException{
+
         parentLogger.info("jeu selectionné : defenseur Mastermind");
         int nbtour = 0;
         try {

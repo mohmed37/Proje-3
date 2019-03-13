@@ -8,19 +8,21 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class JeuxRecherche {
+
     protected static final Logger parentLogger = LogManager.getLogger();
 
     static void chalengerRecherche() throws IOException {
+
         parentLogger.info("jeu selectionné : Jeux Recherche");
 
-        int nbtour = 0;        
-            try {
+        int nbtour = 0;
+        try {
             nbtour = Integer.valueOf(Config.getProperties("ConfNbTour1"));
             Combinaison.nbcombinaison = Integer.valueOf(Config.getProperties("ConfNbCombinaison"));
-            }catch(IOException e){
-                System.out.println("Il y a eu une erreur avec le chargement du fichier");
-                parentLogger.warn("Il y a eu une erreur avec le chargement du fichier properties");
-            }
+        }catch(IOException e){
+            System.out.println("Il y a eu une erreur avec le chargement du fichier");
+            parentLogger.warn("Il y a eu une erreur avec le chargement du fichier properties");
+        }
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
         combinaison.combinaisonAleatoire(true);
@@ -34,6 +36,7 @@ public class JeuxRecherche {
     }
 
     static void defenseurRecherche() throws IOException {
+
         parentLogger.info("jeu selectionné :  defenseur Recherche");
         int nbtour = 0;
         try {
@@ -55,7 +58,8 @@ public class JeuxRecherche {
     }
 
     static void duelRecherche() throws IOException {
-        parentLogger.info("jeu selectionné :   duel Recherche");
+
+        parentLogger.info("jeu selectionné : duel Recherche");
         int nbtour = 0;
         try {
             nbtour = Integer.valueOf(Config.getProperties("ConfNbTour1"));

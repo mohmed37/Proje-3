@@ -24,6 +24,7 @@
             <appender-ref ref="fileLogger" level="debug" />
         </Root>
     </Loggers>
+
 </Configuration>
 
 

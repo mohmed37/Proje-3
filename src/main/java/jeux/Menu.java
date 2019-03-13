@@ -11,7 +11,6 @@ public class Menu {
     protected static final Logger parentLogger = LogManager.getLogger();
     int choix1 = 0;
     int choix2 = 0;
-
     Scanner clavier = new Scanner(System.in);
 
 
@@ -76,6 +75,7 @@ public class Menu {
             return menu1();
         }
         void finDeCycle ( int choixDuJeu) throws IOException {
+
             parentLogger.info("Fin du cycle selection : Que voulez vous faire");
             int choixmenu = 0;
             Menu menu =new Menu();
