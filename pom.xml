@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>groupId</groupId>
-    <artifactId>Projet 3</artifactId>
+    <groupId>com.enedis.jeux</groupId>
+    <artifactId>mastermind</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -17,6 +17,7 @@
                     <target>7</target>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
     <dependencies>

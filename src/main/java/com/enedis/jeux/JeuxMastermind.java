@@ -1,4 +1,4 @@
-package jeux;
+package com.enedis.jeux;
 
 
 
@@ -7,59 +7,59 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-public class JeuxRecherche {
-
+public class JeuxMastermind {
     protected static final Logger parentLogger = LogManager.getLogger();
 
-    static void chalengerRecherche() throws IOException {
 
-        parentLogger.info("jeu selectionné : Jeux Recherche");
+    static void challengerMastermind() throws IOException{
 
+        parentLogger.info("jeu selectionné : challenger Mastermind");
         int nbtour = 0;
+
         try {
             nbtour = Integer.valueOf(Config.getProperties("ConfNbTour1"));
             Combinaison.nbcombinaison = Integer.valueOf(Config.getProperties("ConfNbCombinaison"));
         }catch(IOException e){
-            System.out.println("Il y a eu une erreur avec le chargement du fichier");
+            System.out.println("Il y a eu une erreur avec le chargement du fichier ");
             parentLogger.warn("Il y a eu une erreur avec le chargement du fichier properties");
         }
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
-        combinaison.combinaisonAleatoire(true);
+        combinaison.combinaisonAleatoire(false);
         for (int i = 1; i <= nbtour; i++) {
-            combinaison.combinaisonManuel(true);
-            combinaison.comparaison(true, false);
+            combinaison.combinaisonManuel(false);
+            combinaison.comparaison(false, false);
         }
         System.out.print("Vous avez perdu le code secret était : "+combinaison.kstring);
         System.out.println(" ");
-        menu.finDeCycle(1);
+        menu.finDeCycle(4);
     }
 
-    static void defenseurRecherche() throws IOException {
+    static void defenseurMastermind() throws IOException{
 
-        parentLogger.info("jeu selectionné :  defenseur Recherche");
+        parentLogger.info("jeu selectionné : defenseur Mastermind");
         int nbtour = 0;
         try {
             nbtour = Integer.valueOf(Config.getProperties("ConfNbTour1"));
             Combinaison.nbcombinaison = Integer.valueOf(Config.getProperties("ConfNbCombinaison"));
         }catch(IOException e){
-            System.out.println("Il y a eu une erreur avec le chargement du fichier");
+            System.out.println("Il y a eu une erreur avec le chargement du fichier properties:");
             parentLogger.warn("Il y a eu une erreur avec le chargement du fichier properties");
         }
+
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
-        combinaison.ordinateur(true, true,false);
+        combinaison.ordinateur(true, false,false);
         for (int i = 1; i <= nbtour; i++) {
-            combinaison.ordinateur(false, true,false);
+            combinaison.ordinateur(false, false,false);
         }
         System.out.println("Vous avez gagné!");
         System.out.println(" ");
-        menu.finDeCycle(2);
+        menu.finDeCycle(5);
     }
 
-    static void duelRecherche() throws IOException {
-
-        parentLogger.info("jeu selectionné : duel Recherche");
+    static void duelMastermind() throws IOException{
+        parentLogger.info("jeu selectionné : duel Mastermind");
         int nbtour = 0;
         try {
             nbtour = Integer.valueOf(Config.getProperties("ConfNbTour1"));
@@ -70,15 +70,15 @@ public class JeuxRecherche {
         }
         Combinaison combinaison = new Combinaison();
         Menu menu =new Menu();
-        combinaison.ordinateur(true, true,true);
-        combinaison.combinaisonAleatoire(true);
+        combinaison.ordinateur(true, false,true);
+        combinaison.combinaisonAleatoire(false);
         for (int j = 1; j <= nbtour; j++) {
-            combinaison.ordinateur(false, true,true);
-            combinaison.combinaisonManuel(true);
-            combinaison.comparaison(true, true);
+            combinaison.ordinateur(false, false,true);
+            combinaison.combinaisonManuel(false);
+            combinaison.comparaison(false, true);
         }
         System.out.print("Vous n'avez pas pu vous départager et le code secret de l'ordinateur était: "+combinaison.kstring);
         System.out.println(" ");
-        menu.finDeCycle(3);
+        menu.finDeCycle(6);
     }
 }

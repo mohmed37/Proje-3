@@ -1,4 +1,4 @@
-package jeux;
+package com.enedis.jeux;
 
 import java.io.FileInputStream;
 import java.io.IOException;

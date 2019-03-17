@@ -1,4 +1,4 @@
-package jeux;
+package com.enedis.jeux;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,7 +51,7 @@ public class Combinaison {
             if (recherche==true){
                 k[i] = rand.nextInt(9);
             }else {
-                k[i] = (modeMastermind)+rand.nextInt(10-(modeMastermind));
+                k[i] = rand.nextInt((modeMastermind));
 
             }
 
@@ -74,7 +74,7 @@ public class Combinaison {
      */
 
     void combinaisonManuel(boolean recherche) {
-        parentLogger.info("combinaison Manue");
+        parentLogger.info("combinaison Manuel");
 
         System.out.println("Taper votre code");
         int code1 = 0;
@@ -98,9 +98,10 @@ public class Combinaison {
                 }
                 if (recherche==false){
                     for (int i = 0; i <= nbcombinaison - 1; i++) {
-                        if (c[i] <modeMastermind){
-                            System.out.println("les chiffres doivent être > ou = à " +modeMastermind );
-                            parentLogger.info("chiffre > que  "+modeMastermind);
+                        if (c[i] >modeMastermind){
+                            System.out.println(c[i]);
+                            System.out.println("les chiffres doivent être < ou = à " +modeMastermind );
+                            parentLogger.info("chiffre < que  "+modeMastermind);
                             combinaisonManuel(recherche==false);
                         }else {
 
@@ -179,16 +180,16 @@ public class Combinaison {
 
                 for (i = 0; i <= nbcombinaison - 1; i++) {
                     String kb = String.valueOf(k[i]);
-                    String nbrecherché = kb;
-                    int nb = tableau.indexOf(nbrecherché);
+                    String nbrecherche = kb;
+                    int nb = tableau.indexOf(nbrecherche);
                     if (nb >= 0) {
                         present++;
                     }
                 }
                 for (i = 0; i <= nbcombinaison - 1; i++) {
                     String kb1 = String.valueOf(c[i]);
-                    String nbrecherché1 = kb1;
-                    int nb1 = tableau1.indexOf(nbrecherché1);
+                    String nbrecherche1 = kb1;
+                    int nb1 = tableau1.indexOf(nbrecherche1);
                     if (nb1 >= 0) {
                         present1++;
                     }
@@ -217,14 +218,14 @@ public class Combinaison {
     void ordinateur(boolean ordi, boolean recherche,boolean duel) throws IOException {
         parentLogger.info("ordinateur");
         int result1 = 0;
-        int min;
+        int min=0;
         int max=9;
 
         modeMastermind = Integer.valueOf(Config.getProperties("ModeMastermind"));
         if (recherche==true){
             min=0;
         }else {
-            min=modeMastermind;
+            max=modeMastermind;
         }
 
         StringBuilder sb = new StringBuilder();
@@ -267,7 +268,7 @@ public class Combinaison {
 
             if (recherche==false){
                 for ( i = 0; i <= nbcombinaison - 1; i++) {
-                    if (v[i] < modeMastermind){
+                    if (v[i] > modeMastermind){
                         System.out.println("les chiffres doivent être < ou = à " +modeMastermind );
                         parentLogger.info("chiffre < que  "+modeMastermind);
                         ordinateur(true, true,false);
@@ -275,7 +276,7 @@ public class Combinaison {
 
                     }}}
             for (i = 0; i <= nbcombinaison - 1; i++) {
-                t[i]= (modeMastermind)+rand.nextInt(10-(modeMastermind));}
+                t[i]= rand.nextInt(modeMastermind);}
         } else {
 
             for (i = 0; i <= nbcombinaison - 1; i++) {
@@ -293,7 +294,7 @@ public class Combinaison {
             }
             tstring = sb.toString();
             if (recherche) {
-                System.out.print("Propasistion de l'ordinateur: " + tstring + " -> Réponse de l'ordinateur: ");
+                System.out.print("Proposistion de l'ordinateur: " + tstring + " -> Réponse de l'ordinateur: ");
                 System.out.println(resultat2);
             } else {
                 int present = 0;
@@ -304,8 +305,8 @@ public class Combinaison {
 
                 for (i = 0; i <= nbcombinaison - 1; i++) {
                     String tb = String.valueOf(t[i]);
-                    String nbrecherché2 = tb;
-                    int nb2 = tableau2.indexOf(nbrecherché2);
+                    String nbrecherche2 = tb;
+                    int nb2 = tableau2.indexOf(nbrecherche2);
                     if (nb2 >= 0) {
                         present++;
                     }
@@ -313,8 +314,8 @@ public class Combinaison {
 
                 for (i = 0; i <= nbcombinaison - 1; i++) {
                     String tb1 = String.valueOf(v[i]);
-                    String nbrecherché3 = tb1;
-                    int nb3 = tableau3.indexOf(nbrecherché3);
+                    String nbrecherche3 = tb1;
+                    int nb3 = tableau3.indexOf(nbrecherche3);
                     if (nb3 >= 0) {
                         present1++;
                     }
@@ -324,18 +325,18 @@ public class Combinaison {
                 } else {
                     persentTotal = (present1 - result1);
                 }
-                System.out.print("Proposition : " + tstring);
-                System.out.print(" -> Réponse : " + persentTotal + " présent(s), " + result1 + " bien placé(s)");
+                System.out.print("Proposistion de l'ordinateur : " + tstring);
+                System.out.print(" -> Réponse de l'ordinateur : " + persentTotal + " présent(s), " + result1 + " bien placé(s)");
                 System.out.println(" ");
             }
             for (i = 0; i <= nbcombinaison - 1; i++) {
                 if (v[i] > t[i] && v[i] != t[i]) {
                     t[i] = ((t[i] + 1) + rand.nextInt(max - t[i]));
-                    System.out.println(v[i]+" > "+t[i]);
+
                 }
                 if (v[i] < t[i] && v[i] != t[i]) {
                     t[i] = (min+1 ) + rand.nextInt(max-min);
-                    System.out.println(v[i]+" < "+t[i]);
+
                 } else if (nbcombinaison == result1) {
                     Menu menu = new Menu();
                     System.out.println(" ");
