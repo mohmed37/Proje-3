@@ -24,13 +24,13 @@ public class Combinaison {
     int code4 = 0;
     String kstring;
     String tstring;
-    int modeDev;
+    int modeDev1;
     int modeMastermind;
 
     /**
      * Méthode pour créer le code secret en mode aléatoire.
      *  @param recherche si le mode de jeu est recherche (true) les chiffres utilisables vont de 0  9.
-     *                   si le mode de jeu est mastermind (false) le chifres utilisables vot de 4 à 10.
+     *                   si le mode de jeu est mastermind (false) le chifres utilisables vont de 4 à 9.
      *
      */
 
@@ -39,7 +39,7 @@ public class Combinaison {
 
         try {
             modeMastermind = Integer.valueOf(Config.getProperties("ModeMastermind"));
-            modeDev = Integer.valueOf(Config.getProperties("ModeDev"));
+            modeDev1 = Integer.valueOf(Main.getProperties("ModeDev"));
         } catch (IOException e) {
             System.out.println("Il y a eu une erreur avec le chargement du fichier");
             parentLogger.warn("Il y a eu une erreur avec le chargement du fichier properties");
@@ -59,7 +59,7 @@ public class Combinaison {
             kstring = sb.toString();
         }
         parentLogger.info("Combinaison secrète ordinateur : " + kstring);
-        if (modeDev == 1){
+        if (modeDev1 == 1){
             System.out.println("Combinaison secrète ordinateur : " + kstring);
         }else {
         }
@@ -70,7 +70,7 @@ public class Combinaison {
     /**
      * méthode pour écrire le code secret sur le clavier.
      *  @param recherche si le mode de jeu est recherche (true) les chiffres utilisables vont de 0  9.
-     *                   si le mode de jeu est mastermind (false) le chifres utilisables vot de 4 à 10.
+     *                   si le mode de jeu est mastermind (false) le chifres utilisables vot de 4 à 9.
      */
 
     void combinaisonManuel(boolean recherche) {
@@ -212,7 +212,7 @@ public class Combinaison {
      * @param ordi ordinateur propose un premier code et dans un second temps il compare son code aléatoire avec     *
      * le code secret.
      * @param recherche si vrai ou faux on est en style du jeu recherche.
-     * @param duel  si true nous utilisons le mode duel si false c'est pour les deux autres mode.
+     * @param duel  si true nous utilisons le mode duel, si false c'est pour les deux autres mode.
      *
      */
     void ordinateur(boolean ordi, boolean recherche,boolean duel) throws IOException {
@@ -234,7 +234,7 @@ public class Combinaison {
         if (ordi) {
 
             int code1 = 0;
-            System.out.println("Taper le code secret");
+            System.out.println("Taper le code secret que doit chercher l'ordinateur");
             try {
                 code1 = clavier.nextInt();
 
@@ -335,7 +335,7 @@ public class Combinaison {
 
                 }
                 if (v[i] < t[i] && v[i] != t[i]) {
-                    t[i] = (min+1 ) + rand.nextInt(max-min);
+                    t[i] = (min ) + rand.nextInt(t[i]-1);
 
                 } else if (nbcombinaison == result1) {
                     Menu menu = new Menu();
